@@ -8,6 +8,7 @@ export var MAX_SPEED = 80
 export var ROLL_SPEED = 120
 export var FRICTION = 500
 
+
 enum {
 	MOVE,
 	ROLL,
@@ -18,6 +19,7 @@ var state = MOVE
 var velocity = Vector2.ZERO
 var roll_vector = Vector2.DOWN
 var stats = PlayerStats
+var knockback = Vector2.ZERO
 
 onready var animationPlayer = $AnimationPlayer
 onready var animationTree = $AnimationTree
@@ -35,6 +37,9 @@ func _ready():
 	
 
 func _physics_process(delta):
+	knockback = knockback.move_toward(Vector2.ZERO, FRICTION * delta)
+	knockback = move_and_slide(knockback)
+	
 	match state:
 		MOVE:
 			move_state(delta)
@@ -98,8 +103,11 @@ func _on_Hurtbox_area_entered(area):
 		get_tree().current_scene.add_child(gameOverScreen)
 		gameOverScreen.set_title(false)
 		
-	hurtbox.start_invincibility(0.6)
+	
+	knockback = area.knockback_vector * 100
 	hurtbox.create_hit_effect()
+	hurtbox.start_invincibility(0.6)
+	
 	var playerHurtSound = PlayerHurtSound.instance()
 	get_tree().current_scene.add_child(playerHurtSound)
 	
@@ -108,4 +116,5 @@ func _on_Hurtbox_invincibility_started():
 
 func _on_Hurtbox_invincibility_ended():
 	blinkAnimationPlayer.play("Stop")
+	print(1)
 	

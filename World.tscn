@@ -91,24 +91,12 @@ remote_path = NodePath("../../../Camera2D")
 
 [node name="Bat3" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 171, 157 )
-ACCELERATION = null
-MAX_SPEED = null
-FRICTION = null
-WANDER_TARGET_RANGE = null
 
 [node name="Bat2" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 164, 80 )
-ACCELERATION = null
-MAX_SPEED = null
-FRICTION = null
-WANDER_TARGET_RANGE = null
 
 [node name="Bat" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 349, 148 )
-ACCELERATION = null
-MAX_SPEED = null
-FRICTION = null
-WANDER_TARGET_RANGE = null
 
 [node name="Bats" type="Node" parent="YSort"]
 

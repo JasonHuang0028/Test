@@ -5,8 +5,8 @@ var stats = PlayerStats
 onready var title = $PanelContainer/MarginContainer/Rows/Title
 
 func set_title(win : bool):
-	if win:
-		title.text = "YOU WIN"
+	if !win:
+		title.text = "YOU LOSE"
 		title.modulate = Color.green
 	#else:
 		#title.text = "YOU LOSE"

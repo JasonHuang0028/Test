@@ -17,6 +17,7 @@ enum {
 
 var velocity = Vector2.ZERO
 var knockback = Vector2.ZERO
+var roll_vector = Vector2.DOWN
 
 var state = CHASE
 var enemies
@@ -29,6 +30,7 @@ onready var hurtbox = $Hurtbox
 onready var softCollision = $SoftCollision
 onready var wanderController = $WanderController
 onready var animationPlayer = $AnimationPlayer
+onready var hitbox = $Hitbox
 #onready var bat = $Bat
 
 func _ready():
@@ -36,6 +38,7 @@ func _ready():
 	#enemies = get_tree().get_nodes_in_group("Bats")
 	#enemyCount = enemies.size()
 	#print(enemyCount)
+	hitbox.knockback_vector = roll_vector
 	
 
 func _physics_process(delta):
@@ -87,12 +90,11 @@ func pick_random_state(state_list):
 
 func _on_Hurtbox_area_entered(area):
 	stats.health -= area.damage
-	total_health = stats.health * enemyCount
-	total_health -= area.damage
-	if total_health <= 0:
-		var gameOverScreen = GameOverScreen.instance()
-		get_tree().current_scene.add_child(gameOverScreen)
-		gameOverScreen.set_title(true)
+	
+	#if total_health <= 0:
+		#var gameOverScreen = GameOverScreen.instance()
+		#get_tree().current_scene.add_child(gameOverScreen)
+		#gameOverScreen.set_title(true)
 		
 	knockback = area.knockback_vector * 100
 	hurtbox.create_hit_effect()
